@@ -147,25 +147,26 @@ function updateGame(){
 //9 controlar snake
 
 document.addEventListener('keydown', (event) => {
-    if(event.keyCode === 37 && snake.direction.x !== 1){
+
+    if((event.keyCode === 37 || event.keyCode === 65) && snake.direction.x !== 1){
         snake.direction = {
             x: -1,
             y: 0
         }
     }
-    if(event.keyCode === 38 && snake.direction.y !== 1){
+    if((event.keyCode === 38 || event.keyCode === 87) && snake.direction.y !== 1){
         snake.direction = {
             x: 0,
             y: -1
         }
     }
-    if(event.keyCode === 39 && snake.direction.x !== -1){
+    if((event.keyCode === 39 || event.keyCode === 68) && snake.direction.x !== -1){
         snake.direction = {
             x: 1,
             y: 0
         }
     }
-    if(event.keyCode === 40 && snake.direction.y !== -1){
+    if((event.keyCode === 40 || event.keyCode === 83) && snake.direction.y !== -1){
         snake.direction = {
             x: 0,
             y: 1

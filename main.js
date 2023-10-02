@@ -35,7 +35,6 @@ function createBoard(height, width){
 function update(time = 0){
     draw()
     const deltaTime = time - last_time;
-    console.log(deltaTime)
     last_time = time;
     dropCounter += deltaTime;
     if(dropCounter > 200){

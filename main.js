@@ -35,23 +35,16 @@ function createBoard(height, width){
 function update(time = 0){
     draw()
     const deltaTime = time - last_time;
+    console.log(deltaTime)
     last_time = time;
     dropCounter += deltaTime;
     if(dropCounter > 200){
         moveSnake();
         dropCounter = 0;
         if(detectCollisions()){
-            window.alert("Game Over")
-            board = createBoard(BOARD_WIDTH, BOARD_HEIGHT);
-            snake.head = {x:0, y:0};
-            snake.tail = [];
-            snake.direction = {x:1, y:0};
-            scoreCount = 0;
-            score.innerHTML = scoreCount;
+            gameOver();
         }
     }
-    detectFood()
-    updateBoard()
     detectFood()
     updateBoard()
     window.requestAnimationFrame(update)
@@ -114,11 +107,9 @@ function moveSnake(){
 
 function detectCollisions(){
     if(snake.head.x >= BOARD_WIDTH || snake.head.x < 0 || snake.head.y >= BOARD_HEIGHT || snake.head.y < 0){
-        console.log('a')
         return true
     }
     if(board[snake.head.y][snake.head.x] === 1){
-        console.log('b')
         return true
     }
     return false
@@ -175,7 +166,20 @@ document.addEventListener('keydown', (event) => {
     }
     moveSnake();
     dropCounter = 0;
+    if(detectCollisions()){
+        gameOver();
+    }
 })
+
+function gameOver(){
+        window.alert("Game Over")
+        board = createBoard(BOARD_WIDTH, BOARD_HEIGHT);
+        snake.head = {x:0, y:0};
+        snake.tail = [];
+        snake.direction = {x:1, y:0};
+        scoreCount = 0;
+        score.innerHTML = scoreCount;
+}
 
 
 

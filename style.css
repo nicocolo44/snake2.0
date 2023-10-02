@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    place-content: center;
+    color-scheme: dark light;
+    background-color: #242424;
+    
+}
+
+strong{
+    color: #fff;
+    
+}

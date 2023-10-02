@@ -13,7 +13,8 @@ const BOARD_HEIGHT = 10
 let POS_X = 0
 let POS_Y = 0
 
-
+let dropCounter = 0;
+let last_time = 0;
 
 canvas.width = BLOCK_SIZE * BOARD_WIDTH
 canvas.height = BLOCK_SIZE * BOARD_HEIGHT
@@ -31,8 +32,28 @@ function createBoard(height, width){
     return board
 }
 
-function update(){
+function update(time = 0){
     draw()
+    const deltaTime = time - last_time;
+    last_time = time;
+    dropCounter += deltaTime;
+    if(dropCounter > 200){
+        moveSnake();
+        dropCounter = 0;
+        if(detectCollisions()){
+            window.alert("Game Over")
+            board = createBoard(BOARD_WIDTH, BOARD_HEIGHT);
+            snake.head = {x:0, y:0};
+            snake.tail = [];
+            snake.direction = {x:1, y:0};
+            scoreCount = 0;
+            score.innerHTML = scoreCount;
+        }
+    }
+    detectFood()
+    updateBoard()
+    detectFood()
+    updateBoard()
     window.requestAnimationFrame(update)
 }
 
@@ -52,7 +73,6 @@ function draw(){
     })
 }
 
-// make food
 
 function makeFood(){
     const food = {
@@ -65,7 +85,6 @@ function makeFood(){
     return food
 }
 
-//3 crear snake
 const snake = {
     head: {
         x: 0,
@@ -79,7 +98,6 @@ const snake = {
     eat: false
 }
 
-//4 mover snake
 
 function moveSnake(){
     snake.tail.push({...snake.head})
@@ -93,19 +111,19 @@ function moveSnake(){
     snake.head.y += snake.direction.y
 }
 
-//5 detectar colisiones
 
 function detectCollisions(){
     if(snake.head.x >= BOARD_WIDTH || snake.head.x < 0 || snake.head.y >= BOARD_HEIGHT || snake.head.y < 0){
+        console.log('a')
         return true
     }
     if(board[snake.head.y][snake.head.x] === 1){
+        console.log('b')
         return true
     }
     return false
 }
 
-//6 detectar comida
 
 function detectFood(){
     if(board[snake.head.y][snake.head.x] === 2){
@@ -117,7 +135,6 @@ function detectFood(){
     }
 }
 
-//7 actualizar tablero
 
 function updateBoard(){
     board[snake.head.y][snake.head.x] = 1
@@ -127,24 +144,8 @@ function updateBoard(){
     board[food.y][food.x] = 2
 }
 
-//8 actualizar juego
 
-function updateGame(){
-    moveSnake()
-    if(detectCollisions()){
-        window.alert("Game Over")
-        board = createBoard(BOARD_WIDTH, BOARD_HEIGHT);
-        snake.head = {x:0, y:0};
-        snake.tail = [];
-        snake.direction = {x:1, y:0};
-        scoreCount = 0;
-        score.innerHTML = scoreCount;
-    }
-    detectFood()
-    updateBoard()
-}
 
-//9 controlar snake
 
 document.addEventListener('keydown', (event) => {
 
@@ -172,15 +173,17 @@ document.addEventListener('keydown', (event) => {
             y: 1
         }
     }
+    moveSnake();
+    dropCounter = 0;
 })
 
-//10 iniciar juego
+
 
 let food = makeFood()
 board[food.y][food.x] = 2
+moveSnake();
 
 update();
-setInterval(updateGame, 200)
 
 
 

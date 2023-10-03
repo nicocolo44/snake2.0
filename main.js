@@ -173,7 +173,7 @@ function gameOver(){
         board = createBoard(BOARD_WIDTH, BOARD_HEIGHT);
         snake.head = {x:0, y:0};
         snake.tail = [];
-        snake.direction = {x:1, y:0};
+        snake.direction = {x:0, y:0};
         scoreCount = 0;
         score.innerHTML = scoreCount;
 }

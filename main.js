@@ -1,5 +1,4 @@
 
-//1 inicializar canvas
 const canvas = document.getElementById('canvas')
 const context = canvas.getContext('2d')
 const score = document.getElementById('score')
@@ -7,8 +6,8 @@ const score = document.getElementById('score')
 let scoreCount = 0;
 score.innerHTML = scoreCount;
 const BLOCK_SIZE = 20
-const BOARD_WIDTH = 10
-const BOARD_HEIGHT = 10
+const BOARD_WIDTH = 30
+const BOARD_HEIGHT = 30
 
 let POS_X = 0
 let POS_Y = 0
@@ -22,7 +21,6 @@ canvas.height = BLOCK_SIZE * BOARD_HEIGHT
 
 context.scale(BLOCK_SIZE, BLOCK_SIZE)
 
-//2 crear tablero
 let board = createBoard(BOARD_WIDTH, BOARD_HEIGHT)
 function createBoard(height, width){
     const board = []

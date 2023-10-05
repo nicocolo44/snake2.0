@@ -99,13 +99,12 @@ function moveSnake() {
     }
     snake.head.x += snake.direction.x
     snake.head.y += snake.direction.y
+    snake.head.x = (snake.head.x + BOARD_WIDTH) % BOARD_WIDTH
+    snake.head.y = (snake.head.y + BOARD_HEIGHT) % BOARD_HEIGHT
 }
 
 
 function detectCollisions() {
-    if (snake.head.x >= BOARD_WIDTH || snake.head.x < 0 || snake.head.y >= BOARD_HEIGHT || snake.head.y < 0) {
-        return true
-    }
     if (board[snake.head.y][snake.head.x] === 1) {
         return true
     }
